@@ -1,5 +1,5 @@
 import { assertEqual, testRunner } from '../build/utils.test.ts';
-import './main.ts';
+import tryWithHealing from './main.ts';
 
 // Type testing
 (async () => {
@@ -14,9 +14,15 @@ import './main.ts';
 
 testRunner([
   
-  { name: 'not implemented', fn: async () => {
+  { name: 'basic', fn: async () => {
     
-    // TODO: Implement!
+    const result = await tryWithHealing({
+      fn: () => Promise.resolve('hi'),
+      canHeal: () => false,
+      heal: async () => void 0
+    });
+    
+    assertEqual(result, 'hi');
     
   }}
   
